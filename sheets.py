@@ -73,7 +73,7 @@ for r in roomSet:
 for k in checks:
 	print(k, checks[k])
 
-with open('data.json', 'w') as outfile:
+with open('checks.json', 'w') as outfile:
 	json.dump(checks,outfile)
 
 #with open('data.json', 'rb') as outfile:
