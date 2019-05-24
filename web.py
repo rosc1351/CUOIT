@@ -76,7 +76,8 @@ while True:
 	except:
 		True == True
 
-zone = ["Daily Rooms", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7", "Zone 8", "Zone 9", "Zone 10"] 
+zone = ["Daily Rooms", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7", "Zone 8", "Zone 9", "Zone 10"]
+myDict = {}
 for z in zone:
 	print("Select Zone: ", z)
 	while True:
@@ -111,14 +112,14 @@ for z in zone:
 
 	df = pd.read_excel(io=f)
 	print(df.head(5))  # print first 5 rows of the dataframe
-	myDict = util.readReport(df)
-	print(myDict)
+	myDict.update(util.readReport(df))
+	print(len(myDict))
 
-	with open('data.json', 'w') as outfile:
+with open('data.json', 'w') as outfile:
 		json.dump(myDict,outfile)
 
-	with open('data.json', 'rb') as outfile:
-		r = requests.post("https://oitcu.com/api/rooms.php", files={"data.txt":outfile})
-		print(r.text)
+with open('data.json', 'rb') as outfile:
+	r = requests.post("https://oitcu.com/api/rooms.php", files={"data.txt":outfile})
+	print(r.text)
 
 driver.quit() #close out to be polite to the activity manager

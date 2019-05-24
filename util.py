@@ -43,7 +43,7 @@ def getNewestFile(path):
 import json
 import requests
 
-def testPost(link)
+def testPost(link):
 	myDict = {}
 	myDict['OIT'] = 'sux'
 	myDict['oitcu'] = '.com'

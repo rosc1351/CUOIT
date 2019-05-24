@@ -7,6 +7,7 @@ from google.auth.transport.requests import Request
 
 import time
 import json
+import requests
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 # The ID and range of a sample spreadsheet.
@@ -76,6 +77,6 @@ for k in checks:
 with open('checks.json', 'w') as outfile:
 	json.dump(checks,outfile)
 
-#with open('data.json', 'rb') as outfile:
-#	r = requests.post("https://oitcu.com/api/rooms.php", files={"data.txt":outfile})
-#	print(r.text)
+with open('checks.json', 'rb') as outfile:
+	r = requests.post("https://oitcu.com/api/checkData.php", files={"checks.json":outfile})
+	print(r.text)
