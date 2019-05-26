@@ -2,10 +2,8 @@ import numpy as np
 import pandas as pd
 import glob
 import os
-
-def test():
-	print("Hello world")
-	print("This is a test func")
+import json
+import requests
 
 def readReport(df):
 	(m,n) = df.shape
@@ -33,26 +31,21 @@ def readReport(df):
 	return myDict
 
 def getNewestFile(path):
-	#path of form: '/Users/royceschultz/Downloads/*.xlsx' (as string, w \')
-	# * means all if need specific format then *.csv
-	list_of_files = glob.glob(path)
-	latest_file = max(list_of_files, key=os.path.getctime)
-	return latest_file
-
-
-import json
-import requests
+	#path of form: '/Users/royceschultz/Downloads/*.xlsx'
+	#*. specifies file format in folder
+	return max(glob.glob(path), key=os.path.getctime)
 
 def testPost(link):
 	myDict = {}
 	myDict['OIT'] = 'sux'
 	myDict['oitcu'] = '.com'
-
 	print(myDict)
 
-	with open('data.json', 'w') as outfile:
+	with open('testPost.json', 'w') as outfile:
 		json.dump(myDict,outfile)
 
-	with open('data.json','rb') as outfile:
+	'''
+	with open('testPost.json','rb') as outfile:
 		r = requests.post(link, files={"data.txt":outfile})
 		print(r.text)
+	'''
