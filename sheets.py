@@ -9,10 +9,28 @@ import time
 import json
 import requests
 
+'''
+Uses google API to get roomcheck response data
+
+Returns: None
+Writes a dict to 'checks.json'
+Key = roomName
+Dict[Key] = [epochTime of last check, Days since last check]
+
+Requirements:
+1. NEED 'credentials.json' TO USE GOOGLE API
+	download: console.developers.google.com/apis/credentials
+2. NEED CORRECT 'token.pickle'
+	delete the existing pickle file
+	ensure you have the correct credentials file
+	run fetch() and a popup window will prompt a login to your google account
+	a new, reuable token will be automatically generated
+'''
 def fetch():
+	print("Fetching response sheet data")
 	SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 	SPREADSHEET_ID = '1p6t4qG76h26ChcaIIhpbAAZRx2BvvZ75-mfodP-60tA'
-	RANGE_NAME = 'Form Responses 4!A2:B'
+	RANGE_NAME = 'Form Responses 4!A2:B' #Get first and second columns, timestamp and roomName
 
 	'''
 	BEGIN GOOGLE QUICKSTART
@@ -42,10 +60,10 @@ def fetch():
 
 	times = []
 	rooms = []
-
 	if not values:
 	    print('No data found.')
 	else:
+		#Row = [timestamp, room]
 	    for i,row in enumerate(values):
 	        if row[0] == '':
 	        	True == True
@@ -54,22 +72,16 @@ def fetch():
 	        	epoch = int(time.mktime(time.strptime(row[0],pattern)))
 	        	times.append(epoch)
 	        	rooms.append(row[1])
-
 	now = time.time()
 	roomSet = sorted(set(rooms))
 	checks = {}
-	for r in roomSet:
+	for r in roomSet: #For each unique room
 		l = 0
-		for i,k in enumerate(rooms):
+		for i,k in enumerate(rooms): #find the maximum time
 			if k == r and times[i] > l:
 					l = times[i]
 		checks[r] = [l, (now - l) / (60 * 60 * 24) ] #[Epoch time of latest check, days since last check]
 
 	with open('checks.json', 'w') as outfile:
 		json.dump(checks,outfile)
-
-	'''
-	with open('checks.json', 'rb') as outfile:
-		r = requests.post("https://oitcu.com/api/checkData.php", files={"checks.json":outfile})
-		print(r.text)
-	'''
+	print("Done fetching sheet data")

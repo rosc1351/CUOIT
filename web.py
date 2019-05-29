@@ -4,29 +4,48 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 import requests
 import os
-import time
 import glob
-import numpy as np
 import pandas as pd
 import json
+import time
 
+#Local dependencies
 import util
 
-def fetch():
-	url25live = "https://25live.collegenet.com/cusys/"
-	os.environ["PATH"] += os.pathsep;
-	downloadsPath = '/Users/royceschultz/Downloads/*.xlsx'
+'''
+Fetch data from 25 live using selenium webdriver
+Generates an excel location report for each zone
+Then parses the sheet to a dicitonary so it can be saved as a json
 
-	driver = webdriver.Chrome() #points to chromedriver.exe
-	driver.get(url25live) #go to website
-	print("Waiting while application loads...")
+Returns: None
+writes a dict to 'reports.json'
+Key = roomName
+Dict[key] = [book1, book2,...]
+
+Requirements:
+1. MUST UPDATE DOWNLOADS FOLDER FOR LOCAL SYSTEM BEFORE RUNNING
+2. MUST INCLUDE CHROMEDRIVER.EXE IN LOCAL DIRECTORY FOR SELENIUM'S WEBDRIVER
+	download: chromedriver.chromium.org/downloads
+'''
+def fetch():
+	url25live = 'https://25live.collegenet.com/cusys/'
+	os.environ['PATH'] += os.pathsep;
+
+	#1. UPFATE DOWNLOADS PATH FOR LOCAL SYSTEM
+	downloadsPath = '/Users/royceschultz/Downloads/*.xlsx'
+	#2. POINTS TO CHROMEDRIVER.EXE
+	driver = webdriver.Chrome()
+
+	print('Fetching locaiton reports from 25 live')
+	driver.get(url25live)
+	print('Waiting while application loads...')
 	while True:
-		try:
+		try: #Try to find the button
 			driver.find_element_by_xpath("//div[@id='headerText']/span[4]").click()
-			break
-		except:
-			True == True
-	print("Username")
+			break #if the button is found, break and continue to the next button
+		except: #If the button doesnt exist yet (because it hasn't finished loading)
+			True == True #do nothing
+	print('Username')
 	while True:
 		try:
 			driver.find_element_by_id('LoginUserName').send_keys('warec')
@@ -34,7 +53,7 @@ def fetch():
 		except:
 			True == True
 
-	print("Password")
+	print('Password')
 	while True:
 		try:
 			driver.find_element_by_id('LoginPassword').send_keys('OITv842')
@@ -42,16 +61,16 @@ def fetch():
 		except:
 			True == True
 
-	print("Logging in...")
+	print('Logging in...')
 	while True:
 		try:
 			driver.find_element_by_id('LoginBtn').click()
 			break
 		except:
 			True == True
-	time.sleep(2)
+	time.sleep(5)
 
-	print("Reports Tab")
+	print('Reports Tab')
 	while True:
 		try:
 			driver.find_element_by_id('s25-tabitem-reports').click()
@@ -59,7 +78,7 @@ def fetch():
 		except:
 			True == True
 
-	print("Location Reports")
+	print('Location Reports')
 	while True:
 		try:
 			driver.find_element_by_xpath("//div[@id='ReportsSubtabs']/ul[1]/li[3]").click()
@@ -67,7 +86,7 @@ def fetch():
 		except:
 			True == True
 
-	print("Select Dropdown")
+	print('Select Dropdown')
 	while True:
 		try:
 			driver.find_element_by_xpath("//div[@class='ReportSelect space_reports']/select[1]/option[2]").click()
@@ -75,10 +94,12 @@ def fetch():
 		except:
 			True == True
 
+	#Add Zones here
+	#TODO: Simplify zones. Only dailys and all the rest. This will speed up execution as well.
 	zone = ["Daily Rooms", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7", "Zone 8", "Zone 9", "Zone 10"]
 	myDict = {}
 	for z in zone:
-		print("Select Zone: ", z)
+		print("Select Zone: ", z) #Select zone in dropdown menu
 		while True:
 			try:
 				select = Select(driver.find_element_by_xpath("//*[@id='layout-tabbox-groups']/div[8]/div/div[3]/div/div[2]/table/tbody/tr[1]/td[2]/div[2]/div[2]/div[2]/div/div/div/select"))
@@ -95,7 +116,7 @@ def fetch():
 			except:
 				True == True
 
-		newFile = util.getNewestFile(downloadsPath) #newest file before new report
+		referenceFile = util.getNewestFile(downloadsPath) #newest file before new report
 		print("Run Report")
 		while True:
 			try:
@@ -105,19 +126,12 @@ def fetch():
 				True == True
 
 		print("Waiting while file is created...")
-		f = util.getNewestFile(downloadsPath)
-		while f == newFile: #detect when report is downloaded
-			f = util.getNewestFile(downloadsPath)
-		df = pd.read_excel(io=f)
-		myDict.update(util.readReport(df))
+		newFile = util.getNewestFile(downloadsPath)
+		while newFile == referenceFile: #detect when report is downloaded
+			newFile = util.getNewestFile(downloadsPath)
+		myDict.update(util.readReport(newFile))
 
-	with open('data.json', 'w') as outfile:
+	with open('reports.json', 'w') as outfile:
 			json.dump(myDict,outfile)
-
-	'''
-	with open('data.json', 'rb') as outfile:
-		r = requests.post("https://oitcu.com/api/rooms.php", files={"data.txt":outfile})
-		print(r.text)
-	'''
 
 	driver.quit() #close out to be polite to the activity manager

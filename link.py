@@ -11,10 +11,19 @@ import copy
 import web
 import sheets
 
+'''
+Datagrid class in selenium requires an itteratable, get_item(item) callable datatype
+A list of dictionaries satisfies these requirements
+Each index in the list is a row, each key in the dict is a column
+the Tab class handles creation of a datatable with the following columns:
+room, book, check, day, available
+'''
 class Tab():
+	#Initialize empty list
 	def __init__(self):
 		self.table = []
 
+	#Creates an empty row and returns the row to edit in the parent function
 	def addRow(self):
 		data = {}
 		data['room'] = ""
@@ -31,6 +40,9 @@ class Tab():
 				return row
 		return None
 
+	#Insertion sort a list of dictionaries by the key, criteria
+	#Returns a deepcopy of the list so zone order is preserved on table
+	#TODO: better order the list to distinguish daily rooms from other rooms, currently dailys are just first in list
 	def newSortedList(self, criteria):
 		s = copy.deepcopy(self.table)
 		l = len(s)
@@ -42,36 +54,51 @@ class Tab():
 					break
 		return s
 
+'''
+Import .json files into localTable = Tab()
+Significantly faster than online database
+TODO: Consider switching to standard table like mySQL
+
+Returns: None
+Populates local table with roomNames,
+	a list of book times,
+	the epoch time of the last check,
+	and the days since the last check
+
+Availability is calculated in findAvailability()
+'''
 @anvil.server.callable
 def loadData():
-	bookFile = 'data.json'
-	checkFile = 'checks.json'
+	bookFile = 'reports.json'
 	with open(bookFile, 'r') as f:
 		books = json.load(f)
+
+	checkFile = 'checks.json'
 	with open(checkFile) as f:
 		checks = json.load(f)
-	print("Uploading .json files to database")
-	for k in books:
+
+	print("Loading data to localTable")
+	for k in books: #Only consider rooms in 25 live (though, no other rooms should exist in the response form)
 		c = 0
 		d = 999
 		if k in checks:
 			c = checks[k][0]
-			d = int(checks[k][1])
-		y = localTable.findRoom(k)
-		if y:
-			y['book'] = books[k]
-			y['check'] = c
-			y['day'] = d
-		else:
+			d = int(checks[k][1]) #Round to floor(day)
+		y = localTable.findRoom(k) #check if the room already exists in the list
+		if y == None: #if it doesnt exist, add it
 			y = localTable.addRow()
 			y['room'] = k
-			y['book'] = books[k]
-			y['check'] = c
-			y['day'] = d
-
-	print("Done uploading .json files to database")
+		y['book'] = books[k]
+		y['check'] = c
+		y['day'] = d
+	print("Done loading data to localTable")
 	findAvailability()
 
+'''
+IN PROGRESS
+Indended to backup data to online database
+Backup so we can print list if raspPi server goes down
+'''
 @anvil.server.callable
 def backupTable():
 	for row in localTable.table:
@@ -86,14 +113,23 @@ def backupTable():
 			                           check = row['check'],
 			                           day = row['day'])
 
+'''
+findAvailability reads from localTable to calculate when each room is available
+time and datetime are heavily used in the calculations
 
+Returns: None
+Updates localTable['availability'] for all rooms
+if 'availability' > 0, minutes until book
+elif 'availability' < 0, minutes until open
+'''
+@anvil.server.callable
 def findAvailability():
 	print("Calculating Availability...")
 	now = datetime.datetime.now()
 	today = datetime.date.today()
 	for row in localTable.table:
 		books = row['book']
-		row["available"] = 0
+		row['available'] = 0
 		t = '11:59PM'
 		t = datetime.datetime.strptime(t, '%I:%M%p').time()
 		t = datetime.datetime.combine(today,t)
@@ -103,6 +139,9 @@ def findAvailability():
 				True == True
 			else:
 				t = events.split('-')
+				if len(t) == 1:
+					print("Unexpected book format:", t)
+					continue
 				if t[0] == "contd":
 					t[0] = "12:01AM"
 				if t[1] == "contd":
@@ -122,23 +161,30 @@ def findAvailability():
 			row['available'] = minTimeUntilClose
 	print("Done calculating availability")
 
+'''
+Fetch all data and post it to localTable
+
+DOES NOT POST TO WEB
+'''
 @anvil.server.callable
 def fetchData():
-	print("Fetching data from 25Live")
 	web.fetch()
-	print("Done fetching data from 25Live")
-	print("Fetching response sheet data")
 	sheets.fetch()
-	print("Done fetching sheet data")
-	postData()
+	loadData()
 
+'''
+Fetch sheet reponse data and post it to localTable
+
+DOES NOT POST TO WEB
+'''
 @anvil.server.callable
 def fetchSheet():
-	print("Fetching response sheet data")
 	sheets.fetch()
-	print("Done fetching sheet data")
-	postData()
+	loadData()
 
+'''
+Parse sort settings and return a list of dictionaries to populate datagrid in website
+'''
 @anvil.server.callable
 def get_dispData(criteria, inc):
 	print(criteria)
