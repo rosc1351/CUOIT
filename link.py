@@ -68,15 +68,23 @@ Availability is calculated in findAvailability()
 '''
 @anvil.server.callable
 def loadData():
-	bookFile = 'reports.json'
-	with open(bookFile, 'r') as f:
-		if f is not None:
-			books = json.load(f)
+	try:
+		bookFile = 'reports.json'
+		with open(bookFile, 'r') as f:
+			if f is not None:
+				books = json.load(f)
+	except:
+		print('book file DNE')
+		books = {}
 
-	checkFile = 'checks.json'
-	with open(checkFile) as f:
-		if f is not None:
-			checks = json.load(f)
+	try:
+		checkFile = 'checks.json'
+		with open(checkFile) as f:
+			if f is not None:
+				checks = json.load(f)
+	except:
+		print('check file DNE')
+		checks{}
 
 	print("Loading data to localTable")
 	for k in books: #Only consider rooms in 25 live (though, no other rooms should exist in the response form)
