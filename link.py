@@ -84,7 +84,7 @@ def loadData():
 				checks = json.load(f)
 	except:
 		print('check file DNE')
-		checks{}
+		checks = {}
 
 	print("Loading data to localTable")
 	for k in books: #Only consider rooms in 25 live (though, no other rooms should exist in the response form)
