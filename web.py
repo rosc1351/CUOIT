@@ -29,7 +29,7 @@ Requirements:
 	download: chromedriver.chromium.org/downloads
 '''
 def fetch():
-	display = Display(visible = 1, size = (1024,768))
+	display = Display(visible = 0, size = (1024,768))
 	display.start()
 	url25live = 'https://25live.collegenet.com/cusys/'
 
