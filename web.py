@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
@@ -33,8 +34,8 @@ def fetch():
 	#1. UPFATE DOWNLOADS PATH FOR LOCAL SYSTEM
 	downloadsPath = '/home/pi/Downloads/*.xlsx'
 	#2. POINTS TO CHROMEDRIVER.EXE
-	options = webdriver.ChromeOptions()
-	options.setBinary("/usr/bin/chromium-browser")
+	options = Options()
+	options.setBinary(chrome_options = options, executable_path = "/usr/bin/chromium-browser")
 	driver = webdriver.Chrome('/usr/bin/chromedriver')
 
 	print('Fetching locaiton reports from 25 live')
