@@ -36,7 +36,7 @@ def fetch():
 	#1. UPFATE DOWNLOADS PATH FOR LOCAL SYSTEM
 	downloadsPath = '/home/pi/Downloads/*.xlsx'
 	#2. POINTS TO CHROMEDRIVER.EXE
-	driver = webdriver.Firefox(webdriver.FirefoxProfile())
+	driver = webdriver.Firefox()
 
 	print('Fetching locaiton reports from 25 live')
 	driver.get(url25live)
