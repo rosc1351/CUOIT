@@ -33,6 +33,8 @@ def fetch():
 	#1. UPFATE DOWNLOADS PATH FOR LOCAL SYSTEM
 	downloadsPath = '/home/pi/Downloads/*.xlsx'
 	#2. POINTS TO CHROMEDRIVER.EXE
+	options = webdriver.ChromeOptions()
+	options.setBinary("/usr/bin/chromium-browser")
 	driver = webdriver.Chrome('/usr/bin/chromedriver')
 
 	print('Fetching locaiton reports from 25 live')
