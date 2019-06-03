@@ -29,7 +29,7 @@ Requirements:
 '''
 def fetch():
 	url25live = 'https://25live.collegenet.com/cusys/'
-	os.environ['PATH'] += os.pathsep;
+	#os.environ['PATH'] += os.pathsep;
 
 	#1. UPFATE DOWNLOADS PATH FOR LOCAL SYSTEM
 	downloadsPath = '/home/pi/Downloads/*.xlsx'
