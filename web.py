@@ -29,12 +29,11 @@ Requirements:
 '''
 def fetch():
 	url25live = 'https://25live.collegenet.com/cusys/'
-	#os.environ['PATH'] += os.pathsep;
 
 	#1. UPFATE DOWNLOADS PATH FOR LOCAL SYSTEM
 	downloadsPath = '/home/pi/Downloads/*.xlsx'
 	#2. POINTS TO CHROMEDRIVER.EXE
-	driver = webdriver.Chrome()
+	driver = webdriver.Chrome('/home/pi/OUTCU/chromedriver')
 
 	print('Fetching locaiton reports from 25 live')
 	driver.get(url25live)
