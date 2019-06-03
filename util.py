@@ -51,7 +51,7 @@ def readReport(newFile):
 	return myDict
 
 '''
-RETURNS: paththe newest file in the given folder
+RETURNS: the path to the newest file in the given folder
 
 Utilized in web.py to detect when a new file is created by the 25live report generator
 '''

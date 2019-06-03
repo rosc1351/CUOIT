@@ -53,7 +53,6 @@ class Tab():
 					s.insert(j,x)
 					break
 		return s
-
 '''
 Import .json files into localTable = Tab()
 Significantly faster than online database
@@ -71,11 +70,13 @@ Availability is calculated in findAvailability()
 def loadData():
 	bookFile = 'reports.json'
 	with open(bookFile, 'r') as f:
-		books = json.load(f)
+		if f is not None:
+			books = json.load(f)
 
 	checkFile = 'checks.json'
 	with open(checkFile) as f:
-		checks = json.load(f)
+		if f is not None:
+			checks = json.load(f)
 
 	print("Loading data to localTable")
 	for k in books: #Only consider rooms in 25 live (though, no other rooms should exist in the response form)

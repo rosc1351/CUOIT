@@ -32,7 +32,7 @@ def fetch():
 	os.environ['PATH'] += os.pathsep;
 
 	#1. UPFATE DOWNLOADS PATH FOR LOCAL SYSTEM
-	downloadsPath = '/Users/royceschultz/Downloads/*.xlsx'
+	downloadsPath = '/home/pi/Downloads/*.xlsx'
 	#2. POINTS TO CHROMEDRIVER.EXE
 	driver = webdriver.Chrome()
 
@@ -68,7 +68,7 @@ def fetch():
 			break
 		except:
 			True == True
-	time.sleep(5)
+	time.sleep(10)
 
 	print('Reports Tab')
 	while True:
