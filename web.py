@@ -1,5 +1,5 @@
+from pyvirtualdisplay import Display
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
@@ -29,14 +29,14 @@ Requirements:
 	download: chromedriver.chromium.org/downloads
 '''
 def fetch():
+	display = Display(visible = 1, size = (1024,768))
+	display.start()
 	url25live = 'https://25live.collegenet.com/cusys/'
 
 	#1. UPFATE DOWNLOADS PATH FOR LOCAL SYSTEM
 	downloadsPath = '/home/pi/Downloads/*.xlsx'
 	#2. POINTS TO CHROMEDRIVER.EXE
-	options = Options()
-	options.setBinary(chrome_options = options, executable_path = "/usr/bin/chromium-browser")
-	driver = webdriver.Chrome('/usr/bin/chromedriver')
+	driver = webdriver.Firefox()
 
 	print('Fetching locaiton reports from 25 live')
 	driver.get(url25live)
@@ -137,3 +137,4 @@ def fetch():
 			json.dump(myDict,outfile)
 
 	driver.quit() #close out to be polite to the activity manager
+	display.stop()
