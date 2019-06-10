@@ -9,7 +9,7 @@ import pandas as pd
 import json
 import time
 
-#Local dependencies
+# Local dependencies
 import util
 
 '''
@@ -27,24 +27,26 @@ Requirements:
 2. MUST INCLUDE CHROMEDRIVER.EXE IN LOCAL DIRECTORY FOR SELENIUM'S WEBDRIVER
 	download: chromedriver.chromium.org/downloads
 '''
+
+
 def fetch():
 	url25live = 'https://25live.collegenet.com/cusys/'
-	os.environ['PATH'] += os.pathsep;
+	os.environ['PATH'] += os.pathsep
 
-	#1. UPFATE DOWNLOADS PATH FOR LOCAL SYSTEM
+	# 1. UPFATE DOWNLOADS PATH FOR LOCAL SYSTEM
 	downloadsPath = '/Users/royceschultz/Downloads/*.xlsx'
-	#2. POINTS TO CHROMEDRIVER.EXE
+	# 2. POINTS TO CHROMEDRIVER.EXE
 	driver = webdriver.Chrome()
 
 	print('Fetching locaiton reports from 25 live')
 	driver.get(url25live)
 	print('Waiting while application loads...')
 	while True:
-		try: #Try to find the button
+		try:  # Try to find the button
 			driver.find_element_by_xpath("//div[@id='headerText']/span[4]").click()
-			break #if the button is found, break and continue to the next button
-		except: #If the button doesnt exist yet (because it hasn't finished loading)
-			True == True #do nothing
+			break  # if the button is found, break and continue to the next button
+		except:  # If the button doesnt exist yet (because it hasn't finished loading)
+			True == True  # do nothing
 	print('Username')
 	while True:
 		try:
@@ -68,7 +70,7 @@ def fetch():
 			break
 		except:
 			True == True
-	time.sleep(5)
+	time.sleep(10)
 
 	print('Reports Tab')
 	while True:
@@ -94,12 +96,12 @@ def fetch():
 		except:
 			True == True
 
-	#Add Zones here
-	#TODO: Simplify zones. Only dailys and all the rest. This will speed up execution as well.
+	# Add Zones here
+	# TODO: Simplify zones. Only dailys and all the rest. This will speed up execution as well.
 	zone = ["Daily Rooms", "Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5", "Zone 6", "Zone 7", "Zone 8", "Zone 9", "Zone 10"]
 	myDict = {}
 	for z in zone:
-		print("Select Zone: ", z) #Select zone in dropdown menu
+		print("Select Zone: ", z)  # Select zone in dropdown menu
 		while True:
 			try:
 				select = Select(driver.find_element_by_xpath("//*[@id='layout-tabbox-groups']/div[8]/div/div[3]/div/div[2]/table/tbody/tr[1]/td[2]/div[2]/div[2]/div[2]/div/div/div/select"))
@@ -127,11 +129,11 @@ def fetch():
 
 		print("Waiting while file is created...")
 		newFile = util.getNewestFile(downloadsPath)
-		while newFile == referenceFile: #detect when report is downloaded
+		while newFile == referenceFile:  # detect when report is downloaded
 			newFile = util.getNewestFile(downloadsPath)
 		myDict.update(util.readReport(newFile))
 
 	with open('reports.json', 'w') as outfile:
-			json.dump(myDict,outfile)
+			json.dump(myDict, outfile)
 
-	driver.quit() #close out to be polite to the activity manager
+	driver.quit()  # close out to be polite to the activity manager

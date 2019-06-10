@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.js"></script>
+    <script src = "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="socket.io/socket.io.js" charset="utf-8"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="masthead">
+      <h1>OITSUX</h1>
+    </header>
+    <div class="pageContainer">
+      <div class="pageContent">
+        <div class="testPanel">
+          <form ref='uploadForm'
+      `     id='uploadForm'
+            action='http://localhost:3000/file'
+            method='post'
+            encType="multipart/form-data">
+            <input type="file" name="sampleFile" />
+            <input type='submit' value='Upload!' />
+          </form>
+        </div>
+        <div class="optionsPanel">
+        <h2>Options</h2>
+
+          <button type="button" id="testButton">Test button 1</button>
+          <button type="button" id="testButton2">Test button 2</button>
+          <button type="button" id="getSheetsButton">getSheets</button>
+          <button type="button" id="clearTableButton">clearTable</button>
+        </div>
+        <div class="dataPanel">
+          <table class='table table-hover table-dark'id="dataTable">
+            <thead>
+              <tr>
+                <th>Room Name</th>
+                <th>Status</th>
+                <th>Booked</th>
+                <th>Last Check</th>
+                <th>Days Since Last Check</th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+
+    </footer>
+    <script src="scripts.js" charset="utf-8"></script>
+  </body>
+</html>
