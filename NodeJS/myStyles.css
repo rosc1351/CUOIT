@@ -1,0 +1,135 @@
+:root{
+    --Primary: #6482c8;
+    --Black: #000000;
+    --Light: #666666;
+    --White: #FFFFFF;
+    --DarkMode:#FFFFFF;
+}
+
+.topBar{
+    padding: 20px;
+    background-color: #999999
+}
+
+.pageContent{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    height: 100vh;
+}
+.icon{
+    height:12pt;
+}
+
+.sidebar{
+    background-color: var(--Primary);
+}
+.aside{
+    background-color: var(--Primary);
+}
+
+.article{
+    padding: 10%;
+    background-color: var(--DarkMode);
+}
+.businessCard{
+    text-align: center;
+}
+
+.Name{
+    display: inline;
+    font-weight: normal;
+    font-size: 2em;
+}
+
+#last{
+    font-weight: bold;
+}
+.Title{
+    color:var(--Primary);
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.Contact{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: center;
+}
+
+.ContactItem{
+    padding: 10px;
+    align-items: center;
+}
+
+.sectionHeader{
+    display: grid;
+    grid-template-columns: 1fr 10000fr 1fr;
+    align-items: baseline;
+    font-family: sans-serif;
+}
+
+.sectionTitle{
+    color: var(--Primary);
+    margin-block-start:0px;
+    margin-block-end:0px;
+}
+
+.linebreak{
+    width: 98%;
+    height: 1px;
+    background-color:var(--Black);
+    justify-self:right;
+}
+.sectionButton{
+    font-size: 2em;
+
+}
+
+.item{
+    position:relative;
+    width:80%;
+    margin:auto;
+}
+
+.itemTitle{
+    font-size: 1.5em;
+    margin-block-start:5px;
+    margin-block-end:0px;
+}
+.itemSubtitle{
+    color:var(--Light);
+    font-size: 1em;
+    margin-block-start:5px;
+    margin-block-end:0px;
+    font-family: sans-serif;
+    font-weight: lighter;
+    font-size: 0.8em;
+}
+.itemLine{
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+}
+.itemContent{
+    width: 90%;
+    margin:auto;
+}
+
+.date{
+    color:var(--Primary);
+    text-align: right;
+    margin-block-start:5px;
+    margin-block-end:0px;
+}
+
+#skillsContent{
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: auto;
+}
+
+#skillsContent .item{
+    width: auto;
+}
