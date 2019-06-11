@@ -2,66 +2,157 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.js"></script>
-    <script src = "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <script src="socket.io/socket.io.js" charset="utf-8"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="styles.css">
+    <title>My Website</title>
+    <link rel="stylesheet" href="myStyles.css">
   </head>
   <body>
-    <header class="masthead">
-      <h1>OITSUX</h1>
+    <header class="topBar">
+      <h1>Hello World</h1>
+      <a href="CUOIT.html"> Link Right Here </a>
     </header>
-    <div class="pageContainer">
-      <div class="pageContent">
-        <div class="testPanel">
-          <form ref='uploadForm'
-      `     id='uploadForm'
-            action='http://localhost:3000/file'
-            method='post'
-            encType="multipart/form-data">
-            <input type="file" name="sampleFile" />
-            <input type='submit' value='Upload!' />
-          </form>
-        </div>
-        <div class="optionsPanel">
-        <h2>Options</h2>
 
-          <button type="button" id="testButton">Test button 1</button>
-          <button type="button" id="testButton2">Test button 2</button>
-          <button type="button" id="getSheetsButton">getSheets</button>
-          <button type="button" id="clearTableButton">clearTable</button>
+    <div class="pageContent">
+        <div class="sidebar">
+          <p>Sidebar content</p>
         </div>
-        <div class="dataPanel">
-          <table class='table table-hover table-dark'id="dataTable">
-            <thead>
-              <tr>
-                <th>Room Name</th>
-                <th>Status</th>
-                <th>Booked</th>
-                <th>Last Check</th>
-                <th>Days Since Last Check</th>
-              </tr>
-            </thead>
-            <tbody id="tbody">
+        <div class="article">
+          <header class="businessCard">
+            <h2 class="Name" id="first">Royce</h2>
+            <h2 class="Name" id = "middle">C.</h2>
+            <h2 class="Name" id="last">Schultz</h2>
+            <div class="Title">
+              <h3 class = "Title">Engineering Student</h3>
+            </div>
+            <div class="Contact">
+              <div class="ContactItem">
+                <img src="icons/phone.png" alt="Phone Icon" class="icon">&nbsp;571-354-9559
+              </div>
+              <div class="ContactItem">
+                <img src="icons/mail.png" alt="Email Icon" class="icon">&nbsp;royce.schultz@colorado.edu
+              </div>
+              <div class="ContactItem">
+                <img src="icons/GitHub.png" alt="GitHub Icon" class="icon">&nbsp;<a href="https://www.github.com/rosc1351" target="_blank">rosc1351</a>
+              </div>
+              <div class="ContactItem">
+                <img src="icons/linkedin.png" alt="LinkedIn Icon" class="icon">&nbsp;<a href="https://www.linkedin.com/in/royce-schultz" target="_blank">royce-schultz</a>
+              </div>
+              <div class="ContactItem">
+                <img src="icons/linkedin.png" alt="Website Icon" class="icon">&nbsp;<a href="#" target="_blank">royceschultz.com</a>
+              </div>
+            </div>
+          </header>
+          <div class="Resume">
+            <div class="card">
+              <div class="sectionHeader">
+                <h4 class=sectionTitle>Education</h4>
+                <div class="linebreak"></div>
+                <a class="sectionButton" href="#">&#43;</a>
+              </div>
+              <div class="sectionContent">
+                <div class="item">
+                  <div class="itemLine">
+                    <h5 class="itemTitle">University of Colorado:&nbsp;Boulder</h5>
+                    <p class="date">2016-2021</p>
+                  </div>
+                  <h6 class="itemSubtitle">College of Engineering</h6>
 
-            </tbody>
-          </table>
+                  <p class="itemContent">3.5 GPA, Computer&nbsp;Science &amp; Applied&nbsp;Math, Double&nbsp;Major</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="sectionHeader">
+                <div>
+                  <h4 class=sectionTitle>Projects</h4>
+                </div>
+                <div class="linebreak"></div>
+                <a class="sectionButton" href="#">&#43;</a>
+              </div>
+              <div class="sectionContent">
+                <div class="item">
+                  <div class="itemLine">
+                    <h5 class="itemTitle">OIT Room Schedule Tool</h5>
+                    <p class="date">Web Development</p>
+                  </div>
+                  <h6 class="itemSubtitle">HTML, CSS, Javascript (NodeJS), AWS</h6>
+                  <p class="itemContent">Developed and deployed a web application to aid OIT employees with scheduling daily tasks.</p>
+                  <p class="itemContent">Interfaced with Google Sheets API to gather data from online sources.</p>
+                  <p class="itemContent">Underwent many design itterations. The app began as a python command line tool, then expanded to a Anvil web app, a drag-and-drop python backed website builder, before finally converting to an Express server on NodeJS for easy deploy-ability on AWS.</p>
+                </div>
+                <div class="item">
+                  <div class="itemLine">
+                    <h5 class="itemTitle">AI Shakespeare</h5>
+                    <p class="date">Machine Learning</p>
+                  </div>
+                  <h6 class="itemSubtitle">Python</h6>
+                  <p class="itemContent">Trained a TensorFlow classification model to predict the next character in the sequence based off a buffer of previous charachters.</p>
+                  <p class="itemContent">The model was able to learn basic vocabulary and even simple stage direction, but it could not produce even small phrases with any real syntactic meaning.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="sectionHeader">
+                <h4 class=sectionTitle>Skills</h4>
+                <div class="linebreak"></div>
+                <a class="sectionButton" href="#">&#43;</a>
+              </div>
+              <div class="sectionContent" id="skillsContent">
+                <div class="item">
+                  <h5 class="itemTitle">Programming Languages</h5>
+                  <p class="itemContent">Python, JavaScript, C++, MatLab</p>
+                </div>
+                <div class="item">
+                  <h5 class="itemTitle">Markup Languages</h5>
+                  <p class="itemContent">HTML, CSS, LATEX</p>
+                </div>
+                <div class="item">
+                  <h5 class="itemTitle">Workflow Tool</h5>
+                  <p class="itemContent">Git, GitHub, Atom</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="sectionHeader">
+                <h4 class=sectionTitle>Experience</h4>
+                <div class="linebreak"></div>
+                <a class="sectionButton" href="#">&#43;</a>
+              </div>
+              <div class="sectionContent">
+                <div class="item">
+                  <div class="itemLine">
+                    <h5 class="itemTitle">Student Technician</h5>
+                    <p class="date">May 2018-May 2019</p>
+                  </div>
+                  <h6 class="itemSubtitle">CU Office of Information Technology</h6>
+                  <p class="itemContent">Created a web application to increase employee productivity by automating daily tasks.</p>
+                  <p class="itemContent">Installed and maintained audio visual systems in rooms throughout CU’s campus.</p>
+                  <p class="itemContent">Provided tutorials and on-call assistance to University faculty, staff, and guest lecturers.</p>
+                </div>
+                <div class="item">
+                  <div class="itemLine">
+                    <h5 class="itemTitle">Learning Assistant</h5>
+                    <p class="date">January 2017-May 2018</p>
+                  </div>
+                  <h6 class="itemSubtitle">CU Math Department</h6>
+                  <p class="itemContent">Answered student’s questions and guided group discussion over weekly problem sets in advanced Calculus classes.</p>
+                  <p class="itemContent">Held tutoring hours in the Math Academic Resource Center, aiding dozens of students each week.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+        <div class="aside">
+          <p>aside content</p>
+        </div>
     </div>
 
     <footer>
 
     </footer>
-    <script src="scripts.js" charset="utf-8"></script>
+
+    <script src="myScripts.js" charset="utf-8"></script>
   </body>
 </html>

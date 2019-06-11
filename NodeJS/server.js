@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // Example get request (Send data TO user)
 app.get('/test', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://royceschultz.com');
   res.send('hello world')
 })
 
@@ -94,6 +95,7 @@ app.get('/sheets', (req, res) => {
         daysSince: (Date.now() - lastCheck) / (60 * 60 * 24 * 1000) // subtraction gives ms between 2 dates, division converts to days
       })
     } console.log(table.slice(0, 5))
+    res.setHeader('Access-Control-Allow-Origin', 'http://royceschultz.com');
     res.send(table)
   })
 })
@@ -135,7 +137,6 @@ app.post('/file', function (req, res) {
     res.send('File uploaded!')
   })
 })
-
 
 io.on('connection', (socket) => {
   console.log('connection')

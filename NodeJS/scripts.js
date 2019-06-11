@@ -46,11 +46,11 @@ socket.on('gotdata', function () {
 })
 
 function postData (pData) {
-  $.post('http://localhost:3000/test', pData)
+  $.post('http://royceschultz.com/test', pData)
 }
 
 function getData () {
-  $.get('http://localhost:3000/test', (data) => {
+  $.get('http://royceschultz.com/test', (data) => {
     console.log(data)
   })
 }
@@ -66,7 +66,7 @@ document.querySelector('#testButton2').onclick = function () {
 
 
 function getSheetsData () {
-  $.get('http://localhost:3000/sheets', (data) => {
+  $.get('http://royceschultz.com/sheets', (data) => {
     for (var d in data) {
       addRow(data[d])
     }
