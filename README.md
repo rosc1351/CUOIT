@@ -1,3 +1,3 @@
 # OIT Room Schedule Tool
 
-![Website](/Present/OIT Display.png)
+![Website](/Present/OIT-Display.png)
